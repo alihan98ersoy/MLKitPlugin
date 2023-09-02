@@ -17,9 +17,9 @@ class FaceActivity : AppCompatActivity() {
     private var faceDetector: ThreeDFaceDetectionHelperEasy? = null
     private var surfaceView: SurfaceView? = null
 
-    var resultListener: ResultListener<MLAnalyzer.Result<ML3DFace?>?>? = null
+    var resultListener: ResultListener = null
 
-    fun start(rl: ResultListener<MLAnalyzer.Result<ML3DFace?>?>){
+    fun start(rl: ResultListener){
         resultListener = rl
     }
 
@@ -40,7 +40,7 @@ class FaceActivity : AppCompatActivity() {
         override fun transactResult(p0: MLAnalyzer.Result<ML3DFace?>?) {
             if (p0 != null) {
                 if (p0.analyseList.isNotEmpty()){
-                    resultListener?.onSuccess(p0)
+                    resultListener?.onSuccess(p0.ge)
                 }else{
                     resultListener?.onFailure(Exception("No results"))
                 }
